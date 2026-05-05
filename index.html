@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Directorio de Semilleros de Investigación 2026 - Por Cadenas</title>
+    <title>Directorio de Semilleros - Estilo Apple</title>
     
+    <!-- Fuente Montserrat de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- React & ReactDOM -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -15,19 +20,38 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Configuración de Tailwind con Paleta Personalizada -->
+    <!-- Configuración de Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        paleta: {
-                            1: '#29A632', // Verde
-                            2: '#F2AE2E', // Amarillo-Naranja
-                            3: '#F2921D', // Naranja
-                            4: '#F27649', // Coral
-                            5: '#D94E41', // Rojo
+                        // ==========================================
+                        // PALETA ADOBE COLOR (Reemplaza los HEX aquí si es necesario)
+                        // He preconfigurado estos nombres para que los uses globalmente
+                        // ==========================================
+                        adobe: {
+                            1: '#0071e3', // Color primario interactivo (Apple Blue por defecto)
+                            2: '#f5f5f7', // Fondo principal (Apple Light Gray)
+                            3: '#1d1d1f', // Texto principal (Apple Dark)
+                            4: '#86868b', // Texto secundario (Apple Gray)
+                            5: '#e8e8ed', // Controles (Apple UI Gray)
+                        },
+                        // Colores de Cadenas mantenidos
+                        cad: {
+                            pec: '#324472', // Pecuaria
+                            agr: '#EFA517', // Agrícola
+                            for: '#E86D1F', // Agroforestal
+                            amb: '#A41410', // Ambiental
                         }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'apple-card': '0 4px 24px rgba(0, 0, 0, 0.04)',
+                        'apple-card-hover': '0 10px 40px rgba(0, 0, 0, 0.08)',
+                        'apple-modal': '0 20px 60px rgba(0, 0, 0, 0.15)',
                     }
                 }
             }
@@ -35,18 +59,41 @@
     </script>
 
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f9fafb; margin: 0; padding: 0; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #29A632; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #1e7d25; }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #f5f5f7; 
+            color: #1d1d1f;
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
         
-        /* Animación para el Modal */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        /* Scrollbar elegante estilo macOS */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a1a1a1; }
+        
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        
+        /* Animaciones fluidas Apple-style */
+        @keyframes fadeIn { from { opacity: 0; backdrop-filter: blur(0px); } to { opacity: 1; backdrop-filter: blur(12px); } }
+        @keyframes slideUp { 
+            0% { transform: translateY(40px) scale(0.98); opacity: 0; } 
+            100% { transform: translateY(0) scale(1); opacity: 1; } 
+        }
         .modal-overlay { animation: fadeIn 0.3s ease-out forwards; }
-        .modal-content { animation: slideUp 0.3s ease-out forwards; }
+        .modal-content { animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* Efecto de cristal */
+        .glass-nav {
+            background: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
     </style>
 </head>
 <body>
@@ -56,10 +103,9 @@
         const { useState, useEffect, useMemo } = React;
 
         // ==========================================
-        // DATOS DE LAS CADENAS DE FORMACIÓN
+        // DATOS DE LAS CADENAS DE FORMACIÓN (Intactos)
         // ==========================================
 
-        // CADENA PECUARIA (LOS 32 SEMILLEROS YA ESTÁN AQUÍ)
         const csvPecuario = `Numero;Nombre Semillero;Acrónimo;Misión;Visión;Tipo de semillero;Sede del semillero;Programa académico;Clasificación Internacional Normalizada de la Educación(CINE);Objetivo general;Propietario del semillero;Correo propietario;Nombre Grupo;Codigo GrupoLac;Áreas de conocimiento;Objetivos de desarrollo sostenible;Sede del grupo
 1;Bienestar integral en la Producción Pecuaria;BIOPEC;El Semillero BIOPEC tiene como misión formar estudiantes en competencias investigativas para generar conocimiento científico y propuestas innovadoras en bienestar animal aplicado, que promuevan la mejora de los sistemas productivos pecuarios, la calidad de sus productos y la sostenibilidad del sector, en el contexto de la educación y el sector productivo. ;Para el 2027, el Semillero BIOPEC se proyecta como un referente en la UNAD en investigación formativa sobre bienestar animal, reconocido por la calidad de sus productos académicos y su contribución a la visibilización de la zootecnia desde una perspectiva ética, científica y de responsabilidad social;Semillero de profundización;Zona Centro Sur (Zcsur);Zootecnia;Agropecuario, Selvicultura, Pesca y Veterinaria;Fomentar la capacidad investigativa en estudiantes de la UNAD a través del estudio y análisis de los principios del bienestar animal y su impacto directo en la calidad e inocuidad de los productos pecuarios destinados al consumo humano, contribuyendo al desarrollo de una producción animal sostenible y ética;YEIDRI SULAY TABORDA ROJAS;ystabordar@unadvirtual.edu.co;Producción Sostenible;COL0028186;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Bienestar integral en la Producción Pecuaria), ; Objetivo 2: Hambre cero;Zona Centro Sur (Zcsur)
 2;BIOCIP;BIOCIP; El semillero BIOCIP  tiene como misión fomentar competencias investigativas aplicadas en el área de la reproducción animal en especies de abasto empezando con la especie bovina para pequeños y medianos productores, que articulen a estudiantes, egresados, docentes y comunidad en una red académica, científica crítica comprometida con la transformación social. Mediante la investigación formativa y la aplicación de estrategias biotecnológicas innovadoras, propiciamos mejoramiento del biotipo animal existente con las herramientas biotecnológicas actuales, ofrecidas a dichos productores generamos impacto social que propenden por el mejoramiento de las formas de producción de proteína de origen animal disminuyendo la desigualdad en los territorios.;Para el año 2030, el Semillero BIOCIP será un referente nacional en investigación biotecnológica aplicada reconocido por ser una comunidad educativa de continuo aprendizaje dinamizadora de la transformación territorial. Nos visualizamos como un semillero que integra a estudiantes, egresados, docentes y comunidad en la generación de conocimiento aplicado en el campo de la reproducción animal que producen soluciones de impacto social, con conciencia ambiental y principios de economía circular,;Semillero de profundización;Zona Occidente (Zocc);Zootecnia;Producción agrícola y ganadera;Fomentar disciplina investigativa que propicien la profundización y la innovación en la reproducción animal creando una red académica entre estudiantes semilla, egresados, docentes y comunidad, movilizándolos a pensar en la ejecución de proyectos para trasformación territorial, y la publicación de producción científica.;JUAN ALEJANDRO DAZA FIGUEREDO;jadazaf@unadvirtual.edu.co;Grupo de Investigación en Servicios Eco Sistémicos y Cambio Climático Secc;COL0136933;null;;Zona Centro Bogota Cundinamarca (Zcbog)
@@ -127,7 +173,7 @@ Ciencias Agrícolas - Ciencias Veterinarias  Producción Pecuaria, ";" Objetivo
 22;Semillero de Investigación en Sistemas Productivos y Desarrollo Rural Sispro;SISPRO;El semillero de investigación SISPRO, estará abierto a todos los estudiantes de la ECAPMA y demás escuelas de la Universidad Nacional Abierta y a Distancia. UNAD, para generar conocimiento desde la investigación científica, apoyando, aportando y promoviendo la esencia de la búsqueda de soluciones a problemas reales que permitan el crecimiento del sector agrícola, pecuario y medioambiental, enmarcado en el desarrollo rural, fortaleciendo y apoyando comunidades.;El semillero de investigación SISPRO, será un espacio abierto a conocimiento con reconocimiento en los estamentos académicos, apoyado por un grupo interdisciplinar de profesionales donde se desarrollen proyectos de investigación para dar respuesta a las diferentes problemáticas del sector. El semillero se articulará con diferentes estamentos académicos para su crecimiento, buscando que para el año 2025 se proyecte a nivel nacional e internacional. ;Semillero de profundización;Zona Centro Boyaca (Zcboy);Zootecnia;Agropecuario, Selvicultura, Pesca y Veterinaria;Fortalecer el espíritu investigativo de los estudiantes UNADISTAS en la Escuela de Ciencias Agrícolas Pecuarias y del Medio Ambiente, que conlleve al enriquecimiento del conocimiento y a la motivación del trabajo en equipo, en las áreas de producción animal, desarrollo empresarial agropecuario y desarrollo rural.;JANETH ESPERANZA DEHAQUIZ MEJIA;janeth.dehaquiz@unad.edu.co;Gigass;COL0027689;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca, Biotecnología Agrícola, Ciencias Animales y lechería,
  Ciencias Veterinarias,
 Ciencias Agrícolas - Otras Ciencias Agrícolas";;Zona Centro Boyaca (Zcboy)
-23;Semillero de Investigación Orgánico y Nutricional Zsur;SION ;"Fomentar la investigación formativa mediante un espacio académico para la búsqueda de nuevos conocimientos generando información y proyectos que ayuden a resolver problemáticas pecuarias, agrícolas y agroforestales, participar en procesos de generación de nuevos conocimientos en las áreas de alimentación, metabolismo y nutrición animal, biodiversidad y recursos genéticos, desarrollo rural y Biotecnología.
+23;Semillero de Investigación Orgánico y Nutricional Zsur;SION ;"Fomentar la investigación formativa mediante un espacio académico para la búsqueda de nuevos conocimientos generando información y proyectos que ayuden a resolver problemáticas pecuarias, agrícolas y agroforestales, participar en procesos de generation de nuevos conocimientos en las áreas de alimentación, metabolismo y nutrición animal, biodiversidad y recursos genéticos, desarrollo rural y Biotecnología.
 Los productos de este semillero son importantes para contribuir con las funciones sustantivas investigación y proyección social, que deben desarrollarse desde los programas académicos de la UNAD.";El semillero de investigación orgánico y nutricional SION pretende para el 2025ser reconocido a local como grupo de investigación en el que participan estudiantes, docentes de la Universidad Nacional Abierta y a Distancia CEAD Ibagué de la escuela ECAPMA.;Semillero de profundización;Zona Sur (Zsur);Zootecnia;Agropecuario, Selvicultura, Pesca y Veterinaria;"Sembrar una cultura investigativa, que busque soluciones a las problemáticas pecuarias, ambientales y de producción animal de la región desarrollando proyectos de investigación que contribuyan a la generación de conocimiento en las áreas de alimentación, metabolismo y nutrición animal, biodiversidad y recursos genéticos, desarrollo rural y Biotecnología, así como el fortalecimiento de las competencias investigativas de los docentes y estudiantes de los programas académicos de la ECAPMA interesados en el estudio de estas
 temáticas";DANILO BONILLA TRUJILLO;danilo.bonilla@unad.edu.co;Inyumacizo;COL0043529;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Semillero de Investigación Orgánico y Nutricional Zsur), ; Objetivo 2: Hambre cero;Zona Sur (Zsur)
 24;Semillero de Investigación para la Sostenibilidad y la apropiación Social “SIPASS”;SIPASS;Impulsar la investigación y la creación interdisciplinaria para fortalecer la conciencia ecológica, promover la sostenibilidad y favorecer la apropiación social del conocimiento en los territorios.;Consolidarse como un referente nacional que promueva la creación e investigación e impulse soluciones sostenibles y expresivas, orientadas a transformar los territorios rurales;Semillero de profundización;Zona Amazonia y Orinoquia (Zao);Zootecnia;Agropecuario, Selvicultura, Pesca y Veterinaria;Impulsar iniciativas de investigación y creación que articulen prácticas sostenibles y gestión responsable de los recursos, orientadas a fortalecer el desarrollo de los territorios rurales.;DIANA MILENA TORRES NOVOA;"msalazarvil@unadvirtual.edu.co; msalazarvil@unadvirtual.edu.co; msalazarvil@unadvirtual.edu.co";Cazao;COL0091849;"Ciencias Agrícolas - Ciencias Animales y lechería (Semillero de Investigación para la Sostenibilidad y la apropiación Social “SIPASS”), 
@@ -163,7 +209,6 @@ Ciencias Sociales - Geografía Social y Económica (Semillero Sitpa), ";" Objeti
 Ingeniería y Tecnología - Ingeniería Ambiental (Zootecnia, Ruralidad y Ambiente), 
 Ingeniería y Tecnología - Otras Ingenierías y Tecnologías (Zootecnia, Ruralidad y Ambiente), ";;Zona Centro Bogota Cundinamarca (Zcbog)`;
 
-        // CADENA AMBIENTAL
         const csvAmbiental = `Número;Nombre Semillero;Acrónimo;Misión;Visión;Tipo de semillero;Sede del semillero;Programa académico;Clasificación Internacional Normalizada de la Educación(CINE);Objetivo general;Propietario del semillero;Correo propietario;Nombre Grupo;Codigo GrupoLac;Áreas de conocimiento;Objetivos de desarrollo sostenible;Sede del grupo
 1;Desarrollo Rural ;DERU;El semillero “DESARROLLO RURAL” de ECAPMA UDR MARIQUITA busca desarrollar en los estudiantes competencias en el área de la investigación, mediante la formulación y ejecución de proyectos que estimulen y proyecten el desarrollo rural del norte del Tolima, especialmente en la zona de influencia de la UDR, construyendo cultura científica dentro del proceso de formación en pregrado, lo cual es indispensable para la formación profesional integral de hoy. ;El semillero “Desarrollo Rural” pretende en el 2021 ser un semillero líder en investigación formativa y productiva, logrando desarrollar actividades y proyectos de gran relevancia a nivel local y nacional, que promuevan constantemente el desarrollo integral de la persona que vive y ve por el desarrollo agropecuario colombiano, que genere alternativas de desarrollo para el sector rural del área de influencia de la UDR de Mariquita y sus alrededores.;Semillero de profundización;Zona Sur (Zsur);Ingenieria Ambiental;Ciencias del medio ambiente;Promover la cultura investigativa, la competencia y el deseo científico, así como la gestión de proyectos de investigación, en los estudiantes en proceso de formación tecnológica y profesional, profundizando en temáticas que contribuyan al desarrollo agropecuario colombiano.;MARCELA MEJIA GUARIN;marcela.mejia@unad.edu.co;Inyumacizo;COL0043529;Ciencias Agrícolas - Otras Ciencias Agrícolas (Desarrollo Rural ), Ciencias Naturales - Ciencias de la Tierra y Medioambientales (Desarrollo Rural;;Zona Sur (Zsur)
 2;Gestión Sostenible de los Recursos Hídricos Gsrh;GSRH;Fomentar la investigación en torno a la gestión integral del recurso hídrico, promoviendo la formación de investigadores y generando conocimiento científico y tecnológico que permita abordar los desafíos actuales y futuros relacionados con la escasez, contaminación y uso inadecuado del agua.;Ser un referente en investigación aplicada e innovación en gestión sostenible de los recursos hídricos, contribuyendo a la generación de conocimiento y soluciones prácticas para garantizar la disponibilidad y calidad del agua, en beneficio de las comunidades y los ecosistemas.;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Ingenieria Ambiental;Ciencias del medio ambiente;Desarrollar proyectos de investigación con semilleristas, que contribuyan a la gestión sostenible de los recursos hídricos en el contexto local y regional, mediante el análisis de los problemas hídricos más relevantes, la evaluación de tecnologías y herramientas de gestión, y la propuesta de soluciones innovadoras para mejorar la calidad, disponibilidad del agua y la gestión y educación ambiental.;LERSEN ANDRES FLOREZ RAMOS;lersen.florez@unad.edu.co;Grupo de Estudios Ambientales Aplicados Geaa;COL0163888;Ciencias Naturales - Ciencias de la Tierra y Medioambientales (Gestión Sostenible de los Recursos Hídricos Gsrh), ; Objetivo 6: Agua limpia y saneamiento;Zona Centro Bogota Cundinamarca (Zcbog)
@@ -211,7 +256,7 @@ Ciencias Naturales - Ciencias de la Tierra y Medioambientales (Semillero de Inve
 Ingeniería y Tecnología - Biotecnología Medioambiental (Semillero de Investigación en Energías Renovables y Cambio Climático), 
 Ingeniería y Tecnología - Ingeniería Ambiental (Semillero de Investigación en Energías Renovables y Cambio Climático), ";" Objetivo 7: Energía asequible y no contaminante; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático";Zona Centro Bogota Cundinamarca (Zcbog)
 16;Semillero de Investigación en Ingeniería y Tecnología Ambiental  ;IngTec;Desarrollar procesos de investigación aplicada a la solución de problemáticas ambientales mediante la integración de metodologías de sostenibilidad y herramientas tecnológicas, que permitan apoyar en la toma de decisiones y generen nuevo conocimiento. ;El semillero IngTec será reconocido como espacio generador de conocimiento asociado al desarrollo e implementación de avances tecnológicos y metodológicos en el área ambiental, contribuyendo a mejorar los factores asociados al crecimiento urbano, recurso hídrico, saneamiento y adaptación al cambio climático. ;Semillero de profundización;Zona Occidente (Zocc);Ingenieria Ambiental;Ciencias del medio ambiente;Permitir el intercambio de conocimiento mediante el análisis de las dinámicas ambientales, sociales y económicas, las cuales a través de actividades investigativas puedan contribuir al desarrollo de nuevas herramientas para la solución de problemáticas en el área de estudio. ;KELLY ANDREA AGUIRRE OSORIO;kelly.aguirre@unad.edu.co;Ciab;COL0121879;Ciencias Naturales - Ciencias Biológicas, Ciencias Naturales - Otras Ciencias Naturales, Ingeniería y Tecnología - Biotecnología Medioambiental, Ingeniería y Tecnología - Ingeniería Ambiental, Ingeniería y Tecnología - Otras Ingenierías y Tecnologías;" Objetivo 6: Agua limpia y saneamiento; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Occidente (Zocc)
-17;Semillero de Investigación Medioambiental Unadista Zsur;SIMAU;El Semillero de Investigación Medio Ambiental Unadista (SIMAU) tiene como misión promover y desarrollar actividades de investigación formativa que generen un espacio académico para la búsqueda de nuevos conocimientos. SIMAU se enfoca en la creación de información y proyectos dirigidos a mitigate, compensar y resolver problemáticas ambientales en el territorio Tolimense, en favor de una sostenibilidad integral.;SIMAU aspira a consolidarse regionalmente como el semillero con mayor incidencia científica y cultural en el Tolima. A través del desarrollo de propuestas, gestión de iniciativas y socialización de resultados, se busca contribuir al mejoramiento de la calidad de vida de la comunidad tolimense.;Semillero de profundización;Zona Sur (Zsur);Ingenieria Ambiental;Ciencias del medio ambiente;Promover en los estudiantes de la Escuela de Ciencias Agrícolas, Pecuarias y del Medio Ambiente (ECAPMA) una cultura científica orientada a la sostenibilidad y la mejora continua de la calidad de vida de la población tolimense.;CARLOS GUILLERMO MESA MEJIA;carlos.mesa@unad.edu.co;Inyumacizo;COL0043529;Ingeniería y Tecnología - Ingeniería Ambiental (Semillero de Investigación Medioambiental Unadista Zsur), ;"Objetivo 6: Agua limpia y saneamiento; Objetivo 7: Energía asequible y no contaminante; Objetivo 12: Uso eficiente de los recursos y la energía";Zona Sur (Zsur)
+17;Semillero de Investigación Medioambiental Unadista Zsur;SIMAU;El Semillero de Investigación Medio Ambiental Unadista (SIMAU) tiene como misión promover y desarrollar actividades de investigación formativa que generen un espacio académico para la búsqueda de nuevos conocimientos. SIMAU se enfoca en la creación de información y proyectos dirigidos a mitigar, compensar y resolver problemáticas ambientales en el territorio Tolimense, en favor de una sostenibilidad integral.;SIMAU aspira a consolidarse regionalmente como el semillero con mayor incidencia científica y cultural en el Tolima. A través del desarrollo de propuestas, gestión de iniciativas y socialización de resultados, se busca contribuir al mejoramiento de la calidad de vida de la comunidad tolimense.;Semillero de profundización;Zona Sur (Zsur);Ingenieria Ambiental;Ciencias del medio ambiente;Promover en los estudiantes de la Escuela de Ciencias Agrícolas, Pecuarias y del Medio Ambiente (ECAPMA) una cultura científica orientada a la sostenibilidad y la mejora continua de la calidad de vida de la población tolimense.;CARLOS GUILLERMO MESA MEJIA;carlos.mesa@unad.edu.co;Inyumacizo;COL0043529;Ingeniería y Tecnología - Ingeniería Ambiental (Semillero de Investigación Medioambiental Unadista Zsur), ;"Objetivo 6: Agua limpia y saneamiento; Objetivo 7: Energía asequible y no contaminante; Objetivo 12: Uso eficiente de los recursos y la energía";Zona Sur (Zsur)
 18;Semillero de Investigación Microbios;SiMICROBIOS;Impulsar el progreso y la sostenibilidad mediante la innovación en el uso de microorganismos. Nuestro objetivo es investigar y desarrollar soluciones biotecnológicas que transformen industrias, promuevan la salud, protejan el medio ambiente y generen valor social. A través de la colaboración interdisciplinaria y el uso responsable de la biotecnología, buscamos liderar el avance hacia un futuro más saludable y sostenible;Fomentar la innovación y desarrollo microbiano orientado hacia la aplicación de tecnologías avanzadas para descubrir, desarrollar y utilizar microorganismos con el fin de resolver desafíos globales, abarcando las múltiples áreas como la biotecnología, la salud, la sostenibilidad ambiental, y producción industrial. ;Semillero de exploración;Zona Centro Bogota Cundinamarca (Zcbog);Ingenieria Ambiental;Ciencias del medio ambiente;Impulsar el desarrollo y la aplicación de soluciones innovadoras basadas en microorganismos, promoviendo avances científicos y tecnológicos que contribuyan al bienestar humano, del medio ambiente y el industrial  ;SONIA ESPERANZA RUIZ ;sonia.ruiz@unad.edu.co;Grupo de Conservación Bioprospección y Desarrollo Sostenible Cobides;COL0172419;Ingeniería y Tecnología - Biotecnología Medioambiental (Semillero de Investigación Microbios), ;" Objetivo 6: Agua limpia y saneamiento
 ; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Bogota Cundinamarca (Zcbog)
 19;Semillero Ecohidrología;Ecohidrología;El Semillero de Investigación en Ecohidrología forma jóvenes investigadores comprometidos con la conservación ambiental y la gestión sostenible del recurso hídrico. Promueve espacios de aprendizaje sobre la importancia de los servicios ecosistémicos y el desarrollo de proyectos que fortalezcan la resiliencia de las cuencas hidrográficas, impulsando una cultura ambiental basada en la ciencia, la innovación y la sostenibilidad.;Consolidarse como un semillero líder en investigación ambiental y ecohidrológica, enfocado en el estudio de la oferta hídrica en ecosistemas de alta montaña y en el desarrollo sustentable de comunidades cercanas a las cuencas, promoviendo la resiliencia hidrológica, la ecohidrología urbana, la educación ambiental y la conservación de la biodiversidad.;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Ingenieria Ambiental;Ciencias de la tierra;Fortalecer las capacidades investigativas de los estudiantes del programa ECAPMA, promoviendo una formación integral en ecohidrología y conservación ambiental mediante espacios de aprendizaje e interacción que fortalezcan sus habilidades científicas y prácticas para el manejo sostenible del agua, la restauración de cuencas y la conservación de la biodiversidad.;CLAUDIA MILENA OSPINA LOPEZ;claudia.ospina@unad.edu.co;Grupo de Estudios Ambientales Aplicados Geaa;COL0163888;Ciencias Naturales - Ciencias de la Tierra y Medioambientales (Semillero Ecohidrología), Ciencias Naturales - Otras Ciencias Naturales (Semillero Ecohidrología), ;" Objetivo 6: Agua limpia y saneamiento
@@ -242,28 +287,27 @@ Ingeniería y Tecnología - Ingeniería Ambiental (Zooagrarioambiental), ";" Obj
 ; Objetivo 7: Energía asequible y no contaminante
 ; Objetivo 13:Cambio climático
 ; Objetivo 14: Conservar y utilizar de forma sostenible los océanos, los mares y los recursos marinos
-; Objetivo 15: Vida de ecosistemas terrestres";Zona Caribe (Zcar)`;
+; Objetivo 15: Vida de ecosistemas terrestres";Zona Caribe (Zcar)`
 
-        // CADENA AGROFORESTAL
         const csvAgroforestal = `;Nombre Semillero;Acrónimo;Misión;Visión;Tipo de semillero;Sede del semillero;Programa académico;Clasificación Internacional Normalizada de la Educación(CINE);Objetivo general;Propietario del semillero;Correo propietario;Nombre Grupo;Codigo GrupoLac;Áreas de conocimiento;Objetivos de desarrollo sostenible;Sede del grupo
-1;Bio_Lógicos;BIOLOGICOS;El Semillero tiene como misión el desarrollo rural, a través de la investigación de agroecosistemas, biodiversidad, recursos naturales y genéticos que redunden en un buen manejo ambiental y sustentable de los recursos naturales;En el año 2030 el semillero pretende ser líder en el campo de la investigación de agroecosistemas, biodiversidad, recursos naturales y genéticos con reconocimiento a nivel local y regional y con proyección hacia el desarrollo sustentable.;Semillero de profundización;Zona Sur (Zsur);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Promover el desarrollo de procesos investigativos relacionados con las temáticas de agroecosistemas, biodiversidad, recursos naturales y genéticos;ALEXANDRA  CERON ENDO;alexandra.ceron@unad.edu.co;Inyumacizo;COL0043529;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Bio_Lógicos), 
+1;Bio_Lógicos;BIOLOGICOS;El Semillero tiene como misión el desarrollo rural, a través de la investigación de agroecosistemas, biodiversidad, recursos naturales y genéticos que redunden en un buen manejo ambiental y sustentable de los recursos naturales;En el año 2030 el semillero pretende ser líder en el campo de la investigación de agroecosistemas, biodiversidad, recursos naturales y genéticos con reconocimiento a nivel local y regional y con proyección hacia el desarrollo sustentable.;Semillero de profundización;Zona Sur (Zsur);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Promover el desarrollo de procesos investigativos relacionados con las temáticas de agroecosistemas, biodiversidad, recursos naturales y genéticos;ALEXANDRA  CERON ENDO;alexandra.ceron@unad.edu.co;Inyumacizo;COL0043529;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Bio_Lógicos), 
 Ciencias Naturales - Ciencias Biológicas (Bio_Lógicos), ";" Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Sur (Zsur)
 2;Biodivercead - Turbo;BIODIVERCEAD - Turbo;Realizar investigación formativa que contribuya a generar conocimiento sobre la biodiversidad de la región de parte de los estudiantes y docentes de la ECAPMA.;A 2027 el semillero Biodivercead Turbo habrá contribuido en la educación integral de estudiantes de la ECAPMA mediante la realización de proyectos de investigación pertinentes para la región y la generación de conocimiento.;Semillero de profundización;Zona Occidente (Zocc);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Desarrollar procesos de investigación formativa para el fortalecimiento de los procesos de formación de la ECAPMA;RAMON ANTONIO MOSQUERA MENA;ramon.mosquera@unad.edu.co;Ciab;COL0121879;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Biodivercead - Turbo), ;" Objetivo 1: Fin de la pobreza; Objetivo 2: Hambre cero; Objetivo 3: Salud y bienestar; Objetivo 4: Educación de calidad; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Occidente (Zocc)
-3;Biodiversidad y Restauración Ecologica;BIORES;El semillero de investigación “Biodiversidad y restauración ecológica”,  tiene como misión contribuir en la proyección investigativa en torno a la Biodiversidad y restauración ecológica, para aportarlos al desarrollo humano sostenible y sustentable de la región y la Nación.;El semillero de investigación “Biodiversidad y restauración ecológica”, tiene como visión para el año 2030 participar y consolidar procesos de investigación aplicada y discusión acerca de la potencialidad de restauración ecológica , de la distribución espacial de áreas estratégicas para la protección del bosque seco y  de alta montaña, ecosistemas estratégicos para la conservación de los servicios ecosistémicos en las cuencas del Dpto. del Valle del Cauca.;Semillero de profundización;Zona Centro Sur (Zcsur);Ingenieria Agroforestal;Medio ambiente natural y vida silvestre;Propiciar el desarrollo del espíritu científico y de investigación en los estudiantes desde la fundamentación disciplinar agroforestal y diversidad de los ecosistemas con participación de las comunidades.;SHIRLEY ANDREA RODRIGUEZ ESPINOSA;shirley.rodriguez@unad.edu.co;Producción Sostenible;COL0028186;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Biodiversidad y Restauración Ecologica), ;" Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Sur (Zcsur)
-4;Biodiversidad, Desarrollo Rural y Agroforestería Tropical;BIODRAT;"Ofrecer un espacio de formación y crecimiento profesional con fuertes 
-competencias investigativas a estudiantes y egresados de los programas de la ECAPMA, que articule los campos de formación con las líneas de investigación en temáticas relacionadas con biodiversidad, desarrollo rural, agroforestería y agricultura tropical encaminados que contribuyan en gran medida en la 
-formulación de estrategias que mejoren las condiciones de vida de las comunidades involucradas. ";"A corto plazo: fomentar la investigación en los campos de interés (biodiversidad, agroforestería, desarrollo rural y agricultura tropical) realizando interrelaciones entre los cursos académicos con el fin llevar a la práctica los conocimientos adquiridos en los cursos a través de proyectos de investigación. En el Mediano plazo: formular y presentar propuestas de investigación en las áreas de interés ante diferentes entes institucionales con el propósito de lograr cofinanciación para los proyectos de investigación. En el Largo plazo: proyectar y fortalecer la formación científica investigativa en las áreas de interés y campos del saber 
-específicos propuestos desde el grupo de investigación. ";Semillero de profundización;Zona Occidente (Zocc);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;"Fomentar la investigación aplicada en temáticas sobre biodiversi|dad, 
+3;Biodiversidad y Restauración Ecologica;BIORES;El semillero de investigación “Biodiversidad y restauración ecológica”,  tiene como misión contribuir en la proyección investigativa en torno a la Biodiversidad y restauración ecológica, para aportarlos al desarrollo humano sostenible y sustentable de la región y la Nación.;El semillero de investigación “Biodiversidad y restauración ecológica”, tiene como visión para el año 2030 participar y consolidar procesos de investigación aplicada y discusión acerca de la potencialidad de restauración ecológica , de la distribución espacial de áreas estratégicas para la protección del bosque seco y  de alta montaña, ecosistemas estratégicos para la conservación de los servicios ecosistémicos en las cuencas del Dpto. del Valle del Cauca.;Semillero de profundización;Zona Centro Sur (Zcsur);Ingenieria Agroforestal;Medio ambiente natural y vida silvestre;Propiciar el desarrollo del espíritu científico y de investigación en los estudiantes desde la fundamentación disciplinar agroforestal y diversidad de los ecosistemas con participación de las comunidades.;SHIRLEY ANDREA RODRIGUEZ ESPINOSA;shirley.rodriguez@unad.edu.co;Producción Sostenible;COL0028186;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Biodiversidad y Restauración Ecologica), ;" Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Sur (Zcsur)
+4;Biodiversidad, Desarrollo Rural y Agroforestería Tropical;BIODRAT;"Ofrecer un espacio de formación y crecimiento profesional con fuertes 
+competencias investigativas a estudiantes y egresados de los programas de la ECAPMA, que articule los campos de formación con las líneas de investigación en temáticas relacionadas con biodiversidad, desarrollo rural, agroforestería y agricultura tropical encaminados que contribuyan en gran medida en la 
+formulación de estrategias que mejoren las condiciones de vida de las comunidades involucradas. ";"A corto plazo: fomentar la investigación en los campos de interés (biodiversidad, agroforestería, desarrollo rural y agricultura tropical) realizando interrelaciones entre los cursos académicos con el fin llevar a la práctica los conocimientos adquiridos en los cursos a través de proyectos de investigación. En el Mediano plazo: formular y presentar propuestas de investigación en las áreas de interés ante diferentes entes institucionales con el propósito de lograr cofinanciación para los proyectos de investigación. En el Largo plazo: proyectar y fortalecer la formación científica investigativa en las áreas de interés y campos del saber 
+específicos propuestos desde el grupo de investigación. ";Semillero de profundización;Zona Occidente (Zocc);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;"Fomentar la investigación aplicada en temáticas sobre biodiversi|dad, 
 agroforestería, desarrollo rural y agricultura tropical en estudiantes y egresados de los programas académicos de la ECAPMA, articulando la investigación formativa con la práctica en los temas de interés identificados en el semillero.";ANGEL EMIC MENA ARIAS;"aemenaa@unadvirtual.edu.co; aemenaa@unadvirtual.edu.co; aemenaa@unadvirtual.edu.co";Ciab;COL0121879;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Biodiversidad, Desarrollo Rural y Agroforestería Tropical), ;" Objetivo 2: Hambre cero
 ; Objetivo 13:Cambio climático";Zona Occidente (Zocc)
-5;Biosfera;Bases y aprendizajes;Ser un escenario alternativo de discusión académica e investigativa para fortalecer las habilidades investigativas de docentes y estudiantes y la formación profesional en Agronomía, ingenierías agroforestal y ambiental, formando a sus miembros en investigación con espíritu crítico, científico y ético, para aportar a la solución de necesidades con sistemas productivos bajos en carbono y resilientes al clima dentro del contexto regional;"El semillero Biosfera se visualiza en 10 años como un grupo que ha asumido la investigación formativa como parte de la academia; arraigando esta cultura en jóvenes universitarios en donde se apuesta al relevo generacional, con mayor responsabilidad, que le apuesta a la protección de los recursos naturales y al desarrollo agropecuario productivo ";Semillero de profundización;Zona Amazonia y Orinoquia (Zao);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;formar competencias investigativas en los estudiantes de carreras agropecuarias;BLANCA NINFA CARVAJAL  AGUDELO ;blanca.carvajal@unad.edu.co ;Cazao;COL0091849;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Biosfera), ; Objetivo 4: Educación de calidad;Zona Amazonia y Orinoquia (Zao)
+5;Biosfera;Bases y aprendizajes;Ser un escenario alternativo de discusión académica e investigativa para fortalecer las habilidades investigativas de docentes y estudiantes y la formación profesional en Agronomía, ingenierías agroforestal y ambiental, formando a sus miembros en investigación con espíritu crítico, científico y ético, para aportar a la solución de necesidades con sistemas productivos bajos en carbono y resilientes al clima dentro del contexto regional;"El semillero Biosfera se visualiza en 10 años como un grupo que ha asumido la investigación formativa como parte de la academia; arraigando esta cultura en jóvenes universitarios en donde se apuesta al relevo generacional, con mayor responsabilidad, que le apuesta a la protección de los recursos naturales y al desarrollo agropecuario productivo ";Semillero de profundización;Zona Amazonia y Orinoquia (Zao);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;formar competencias investigativas en los estudiantes de carreras agropecuarias;BLANCA NINFA CARVAJAL  AGUDELO ;blanca.carvajal@unad.edu.co ;Cazao;COL0091849;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Biosfera), ; Objetivo 4: Educación de calidad;Zona Amazonia y Orinoquia (Zao)
 6;Chitareros;CHITAREROS;Somos un equipo de estudiantes, docentes,egresados y administrativos de la UNAD del CEAD Málaga, que fomenta procesos de investigación formativa, aplicada y de emprendimiento por medio de la gestión del conocimiento y la productividad académica,generando alternativas de solución a las problemáticas rurales que afectan la región en virtud de la mejora en la calidad de vida de las comunidades en el territorio.;Para el año 2030 el Semillero de Investigación Chitareros será reconocido en el contexto nacional por impactar positivamente en la calidad de vida de las comunidades rurales mediante la gestión de proyectos de investigación y emprendimiento que producirán impacto socioeconómico en las comunidades del territorio.;Semillero de profundización;Zona Centro Oriente (Zcori);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Promover la investigación formativa, aplicada y de emprendimiento, a través de la integración de esfuerzos de la comunidad Unadista en aras de aportar al desarrollo rural integral de la provincia García Rovira.;ENVER CAMILO ALVAREZ JALABE;enver.alvarez@unad.edu.co;Cidagro;COL0151671;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca, Ciencias Animales y lechería, Ciencias Naturales - Ciencias de la Tierra yMedioambientales ;" Objetivo 2: Hambre cero; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático";Zona Centro Oriente (Zcori)
-7;Ecoagrosig;EcoA;El semillero de investigación ECOAGROSIG (Ecología- Ambiente – Agroforestería y sistemas de Información Geográfica) de la Escuela de Ciencias Agrícolas, Pecuarias y del Medio Ambiente (ECAPMA), y de la Cadena Agroforestal de la Universidad Nacional Abierta y a Distancia – UNAD, aporta a  la búsqueda de soluciones de la problemática ambiental, agro productiva a nivel territorial y nacional, a través de propuestas de investigación e innovación que impacten directamente a la comunidad en el municipio de Facatativá a la zona Centro Bogotá, Cundinamarca – ZCBC y al territorio nacional.;Para el 2027 el semillero ECOAGROSIG, se proyecta como un semillero líder en generación de información y conocimientos científica y académica, transformando social y tecnológicamente las regiones donde haga presencia con sus investigadores, desarrollando investigaciones con participación comunitaria e interdisciplinar con áreas como: agronomía, ambiente, agroforestería, forestal, sistemas de información geográfica, territorio y desarrollo sostenible, entre otras.;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Maestría en Geoinformación Del Territorio;Ciencias de la tierra;Dinamizar los procesos de conocimiento dentro de la formación académica de la agroforestería, los sistemas de información geográfica, ambiente y desarrollo, a través de de la investigación y el desarrollo de tecnologías con fines educativos, sociales y productivos.;NADIA LUZ SUAREZ ALBARRACIN;"CC52268802@unadvirtual.edu.co; CC52268802@unadvirtual.edu.co; CC52268802@unadvirtual.edu.co";Grupo Interinstitucional de Investigación en Ciencias Agropecuarias, Forestales y Agroindustriales D;COL0023054;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Ecoagrosig), 
+7;Ecoagrosig;EcoA;El semillero de investigación ECOAGROSIG (Ecología- Ambiente – Agroforestería y sistemas de Información Geográfica) de la Escuela de Ciencias Agrícolas, Pecuarias y del Medio Ambiente (ECAPMA), y de la Cadena Agroforestal de la Universidad Nacional Abierta y a Distancia – UNAD, aporta a  la búsqueda de soluciones de la problemática ambiental, agro productiva a nivel territorial y nacional, a través de propuestas de investigación e innovación que impacten directamente a la comunidad en el municipio de Facatativá a la zona Centro Bogotá, Cundinamarca – ZCBC y al territorio nacional.;Para el 2027 el semillero ECOAGROSIG, se proyecta como un semillero líder en generación de información y conocimientos científica y académica, transformando social y tecnológicamente las regiones donde haga presencia con sus investigadores, desarrollando investigaciones con participación comunitaria e interdisciplinar con áreas como: agronomía, ambiente, agroforestería, forestal, sistemas de información geográfica, territorio y desarrollo sostenible, entre otras.;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Maestría en Geoinformación Del Territorio;Ciencias de la tierra;Dinamizar los procesos de conocimiento dentro de la formación académica de la agroforestería, los sistemas de información geográfica, ambiente y desarrollo, a través de de la investigación y el desarrollo de tecnologías con fines educativos, sociales y productivos.;NADIA LUZ SUAREZ ALBARRACIN;"CC52268802@unadvirtual.edu.co; CC52268802@unadvirtual.edu.co; CC52268802@unadvirtual.edu.co";Grupo Interinstitucional de Investigación en Ciencias Agropecuarias, Forestales y Agroindustriales D;COL0023054;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Ecoagrosig), 
 Ciencias Naturales - Ciencias de la Tierra y Medioambientales (Ecoagrosig), ";" Objetivo 13:Cambio climático
 ; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Bogota Cundinamarca (Zcbog)
 8;Modelamiento Espacial para el Ordenamiento Agroambiental;MOA;Aportar al desarrollo del sector agrario colombiano mediante la puesta en marcha de procesos investigativos, transferencia de conocimiento y de tecnología, en el marco de la sustentabilidad, innovación y pertinencia social.;Consolidarnos como semillero de investigadores referente en procesos de investigación de programas de Pregrado y Postgrado relacionados con las ciencias Agrarias, a nivel nacional e internacional.;Semillero de profundización;Zona Centro Sur (Zcsur);Ingenieria Agroforestal;Ciencias de la tierra;"Definir y documentar los principales parámetros integrales para la medición de indicadores de los componentes: ambiental, edafoclimático, socioeconómico, político-institucional y
 tecnológico, para ser implementados en el ordenamiento agroambiental del territorio.";OSCAR ANDRES TORO TROCHEZ;oscar.toro@unad.edu.co;Tecnogenesis;COL0093925;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca, Ciencias Naturales - Ciencias de la Tierra y Medioambientales Ingeniería y Tecnología - Ingeniería Ambiental ; Objetivo 15: Vida de ecosistemas terrestres;Zona Centro Sur (Zcsur)
-9;Raíces Amazónicas;RAM;"El semillero de investigación ""Raíces Amazónicas"" promueve el estudio y la conservación de la biodiversidad en la Amazonia Colombiana, mediante investigaciones innovadoras y sostenibles entre estudiantes, investigadores, docentes y comunidades locales, generando conocimiento que contribuya a la paz y al desarrollo sostenible, brindando soluciones sostenibles en torno a prácticas productivas que fortalezcan la seguridad alimentaria y la economía regional.";"Para el año 2030, el semillero de investigación ""Raíces Amazónicas"" será un referente de excelencia en investigación agroforestal y conservación de la biodiversidad en la Amazonia Colombiana, por lo que se dinamizarán productos de investigación que aporten aprendizajes significativos a la restauración de los ecosistemas naturales y al desarrollo sostenible de las comunidades Amazónicas. Para materializar esta visión, se favorecerán espacios de interacción, innovación y acción colaborativa entre estudiantes, docentes y comunidades locales empoderadas y comprometidas con la sostenibilidad del     territorio.";Semillero de exploración;Zona Sur (Zsur);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Promover la investigación interdisciplinaria y participativa en agroforestería y conservación de la biodiversidad mediante la gestión de productos de investigación que integren el conocimiento científico y el saber local, con el fin de fortalecer la restauración de ecosistemas y fomentar el desarrollo sostenible de las comunidades de la Amazonia Colombiana.;RAQUEL MARIN ORTIZ;"rmarino@unadvirtual.edu.co; rmarino@unadvirtual.edu.co; rmarino@unadvirtual.edu.co";Inyumacizo;COL0043529;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Raíces Amazónicas), ;" Objetivo 13:Cambio climático
+9;Raíces Amazónicas;RAM;"El semillero de investigación ""Raíces Amazónicas"" promueve el estudio y la conservación de la biodiversidad en la Amazonia Colombiana, mediante investigaciones innovadoras y sostenibles entre estudiantes, investigadores, docentes y comunidades locales, generando conocimiento que contribuya a la paz y al desarrollo sostenible, brindando soluciones sostenibles en torno a prácticas productivas que fortalezcan la seguridad alimentaria y la economía regional.";"Para el año 2030, el semillero de investigación ""Raíces Amazónicas"" será un referente de excelencia en investigación agroforestal y conservación de la biodiversidad en la Amazonia Colombiana, por lo que se dinamizarán productos de investigación que aporten aprendizajes significativos a la restauración de los ecosistemas naturales y al desarrollo sostenible de las comunidades Amazónicas. Para materializar esta visión, se favorecerán espacios de interacción, innovación y acción colaborativa entre estudiantes, docentes y comunidades locales empoderadas y comprometidas con la sostenibilidad del      territorio.";Semillero de exploración;Zona Sur (Zsur);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Promover la investigación interdisciplinaria y participativa en agroforestería y conservación de la biodiversidad mediante la gestión de productos de investigación que integren el conocimiento científico y el saber local, con el fin de fortalecer la restauración de ecosistemas y fomentar el desarrollo sostenible de las comunidades de la Amazonia Colombiana.;RAQUEL MARIN ORTIZ;"rmarino@unadvirtual.edu.co; rmarino@unadvirtual.edu.co; rmarino@unadvirtual.edu.co";Inyumacizo;COL0043529;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Raíces Amazónicas), ;" Objetivo 13:Cambio climático
 ; Objetivo 15: Vida de ecosistemas terrestres";Zona Sur (Zsur)
 10;Semillero de Investigacion Agrosaf;AGROSAF;El semillero tiene como misión el desarrollo rural a través de estudios de investigación en sistemas agrícolas, agroforestales y ambientales para el desarrollo sustentable ;En el año 2030 el semillero será líder en estudios agrícolas y de sistemas agroforestales sustentables para la zona sur Colombiana ;Semillero de profundización;Zona Centro Sur (Zcsur);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Semillero de investigación para realizar procesos investigativos en temáticas relacionadas con sistemas agrícolas, agroforestales y ambientales;MAURO ALBEIRO BRAVO ;mauro.bravo@unad.edu.co;Inyumacizo;COL0043529;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Semillero de Investigacion Agrosaf), ;" Objetivo 1: Fin de la pobreza; Objetivo 2: Hambre cero; Objetivo 8: Trabajo decente; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres; Objetivo 16: Paz, justicia e instituciones sólidas";Zona Sur (Zsur)
 11;Semillero de Investigación Bioecotecnología y Desarrollo Sostenible - Bioindes;BIOINDES;Formar y capacitar a estudiantes y jóvenes investigadores en el desarrollo de soluciones innovadoras basadas en la bioeconomía, las ecotecnologías y la sostenibilidad. Nos enfocamos en la investigación aplicada y en la creación de proyectos que promuevan el uso eficiente de los recursos naturales, la conservación de la biodiversidad y el fortalecimiento de comunidades sostenibles, generar conocimiento que responda a los desafíos ambientales, económicos y sociales de nuestra región.;A 2030 consolidarse como un referente en la investigación e innovación sostenible a nivel regional y nacional, promoviendo soluciones basadas en la bioeconomía y las ecotecnologías que contribuyen a un desarrollo equilibrado y responsable. Aspiramos a formar una comunidad de jóvenes investigadores y profesionales comprometidos con la conservación agroambiental, el uso eficiente de los recursos naturales y el bienestar social, que lideren proyectos con impacto positivo en sus comunidades. A través de la creación de conocimientos aplicables y la construcción de alianzas estratégicas, buscamos impulsar una transición hacia prácticas sostenibles que generen cambios significativos en la sociedad.;Semillero de profundización;Zona Amazonia y Orinoquia (Zao);Ingenieria Agroforestal;Medio ambiente natural y vida silvestre;Fomentar la formación y el desarrollo de habilidades a estudiantes investigadores, promoviendo la creación y aplicación de conocimientos en bioeconomía y ecotecnologías para contribuir al desarrollo sostenible. A través de proyectos de investigación aplicada y un enfoque multidisciplinario, generar soluciones innovadoras que optimicen el uso de los recursos naturales, protejan la biodiversidad y promuevan el bienestar socioeconómico de las comunidades, posicionándose al semillero como un referente en sostenibilidad y prácticas responsables. ;JAIR VARGAS ;jair.vargas@unad.edu.co;Cazao;COL0091849;Ciencias Naturales - Otras Ciencias Naturales (Semillero de Investigación Bioecotecnología y Desarrollo Sostenible - Bioindes), ; Objetivo 12: Uso eficiente de los recursos y la energía;Zona Amazonia y Orinoquia (Zao)
@@ -271,13 +315,12 @@ tecnológico, para ser implementados en el ordenamiento agroambiental del territ
 13;Semillero de Investigacion en Ciencias Agrícolas, Pecuarias y Del Medio Ambiente - Simap;SIMAP;Impulsar la investigación en ecología, medio ambiente, recursos naturales sistemas agrícolas y pecuarios que permitan generar estrategias de producción sostenible y manejo ambiental, para la generación de conocimiento ciencia e innovación, con trabajo en equipo y/o articulación interinstitucional.;El semillero de investigación de ciencias agrícolas pecuarias y del medio ambiente SIMAP, se proyecta ser reconocido como pionero en investigación a nivel institucional y nacional para el 2024, que sirva como base en desarrollo integral para docentes, estudiantes y egresados, de la UNAD, fomentando la generación de conocimiento ciencia tecnología e innovación.;Semillero de profundización;Zona Amazonia y Orinoquia (Zao);Ingenieria Agroforestal;Medio ambiente natural y vida silvestre;Fomentar la investigación en los estudiantes de la escuela ECAPMA, basados en la gestión y manejo ambiental, la biotecnología, biodiversidad, recursos y desarrollo rural. ;LUIS HERNANDO RODRIGUEZ VELASQUEZ;lhrodriguez@unadvirtual.edu.co;Cazao;COL0091849;Ciencias Naturales - Ciencias de la Tierra y Medioambientales ;" Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Amazonia y Orinoquia (Zao)
 14;Semillero de Investigación Sig y Territorio Zcbc;SIG-T;Fomentar la generación continua de conocimiento en el ordenamiento ambiental mediante la participación activa de estudiantes de pregrado, promoviendo el uso de Sistemas de Información Geográfica (SIG) y otras herramientas tecnológicas para la planificación y gestión sostenible del territorio, integrando a los estudiantes como dinamizadores de la investigación en los sectores agrícolas, pecuarios, agroforestales y ambientales.;Consolidar el semillero de investigación SIG-T como líder en la Universidad, proponiendo y ejecutando proyectos que contribuyan de manera significativa a la solución de problemáticas ambientales y territoriales en los sectores agrícola, pecuario, agroforestal y ambiental. ;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Ingenieria Agroforestal;Ciencias de la tierra;Formar estudiantes de pregrado en el uso y aplicación de los Sistemas de Información Geográfica para la planificación y gestión agroambiental del territorio, promoviendo el ordenamiento territorial sostenible y la gestión ambiental desde una perspectiva holística. SIG-T busca, además, que los estudiantes se conviertan en proponentes activos en proyectos de investigación, impulsando el desarrollo sostenible y la adaptación al cambio climático en la región y el país.;YETFERSSON ARLEY SERRATO VELOSA;yetfersson.serrato@unad.edu.co;Grupo de Conservación Bioprospección y Desarrollo Sostenible Cobides;COL0172419;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca, Ciencias Agrícolas - Otras Ciencias Agrícolas,
 Ciencias Naturales - Ciencias de la Tierra y Medioambientales Ingeniería y Tecnología - Ingeniería Ambiental ";" Objetivo 2: Hambre cero; Objetivo 6: Agua limpia y saneamiento; Objetivo 7: Energía asequible y no contaminante; Objetivo 11: Ciudades inclusivas, seguros, resilentes y sostenibles; Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Bogota Cundinamarca (Zcbog)
-15;Semillero de Investigación Ukan;UKAN;El semillero de investigación Ukan tiene como misión fomentar la generación, integración y aplicación del conocimiento científico y práctico en agroforestería, articulando a  estudiantes, docentes y egresados en torno a procesos de formación en investigación.  A través de un enfoque interdisciplinar y participativo busca promover sistemas productivos sostenibles, resilientes y culturalmente pertinentes que contribuya al desarrollo de las comunidades, la conservación de los recursos naturales y el fortalecimiento social comunitario.;Para el año 2030 el semillero de investigación Ukan, será reconocido como un referente regional y nacional en la formación de investigadores y el desarrollo de proyectos novedosos en agroforestería . Sus investigaciones contribuirán a la consolidación de iniciativas agroforestales que contribuyan a la consolidación de territorios sostenibles, resilientes al cambio climático, comprometidos con la seguridad alimentaria, la conservación de la biodiversidad y el bienestar comunitario.;Semillero de profundización;Zona Centro Boyaca (Zcboy);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Fortalecer los procesos de investigación y aplicación  de los conocimientos en agroforestería, mediante la integración de estudiantes, docentes y egresados en procesos de desarrollo  y fortalecimiento social comunitario. ;CLAUDIA MARCELA PAEZ MENDOZA;claudia.paez@unad.edu.co;Gigass;COL0027689;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Semillero de Investigación Ukan), 
+15;Semillero de Investigación Ukan;UKAN;El semillero de investigación Ukan tiene como misión fomentar la generación, integración y aplicación del conocimiento científico y práctico en agroforestería, articulando a  estudiantes, docentes y egresados en torno a procesos de formación en investigación.  A través de un enfoque interdisciplinar y participativo busca promover sistemas productivos sostenibles, resilientes y culturalmente pertinentes que contribuya al desarrollo de las comunidades, la conservación de los recursos naturales y el fortalecimiento social comunitario.;Para el año 2030 el semillero de investigación Ukan, será reconocido como un referente regional y nacional en la formación de investigadores y el desarrollo de proyectos novedosos en agroforestería . Sus investigaciones contribuirán a la consolidación de iniciativas agroforestales que contribuyan a la consolidación de territorios sostenibles, resilientes al cambio climático, comprometidos con la seguridad alimentaria, la conservación de la biodiversidad y el bienestar comunitario.;Semillero de profundización;Zona Centro Boyaca (Zcboy);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Fortalecer los procesos de investigación y aplicación  de los conocimientos en agroforestería, mediante la integración de estudiantes, docentes y egresados en procesos de desarrollo  y fortalecimiento social comunitario. ;CLAUDIA MARCELA PAEZ MENDOZA;claudia.paez@unad.edu.co;Gigass;COL0027689;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca (Semillero de Investigación Ukan), 
 Ciencias Naturales - Ciencias Biológicas (Semillero de Investigación Ukan), ";" Objetivo 12: Uso eficiente de los recursos y la energía
 ; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Boyaca (Zcboy)
-16;Sostenibilidad Ambiental, Forestal y Agropecuaria;SAFAP;Generar un escenario de investigación ambiental, forestal y/o agropecuario, enfocado en la identificación de las problemáticas rurales (reales o potenciales) entorno a los sistemas agro productivos, forestales y naturales que se encuentran en la Región de Sabana Centro, evaluando sus impactos y formulando alternativas de solución que contribuyan al bienestar de la comunidad, mediante la articulación de las áreas de conocimiento de los programas de ingeniería ambiental, ingeniería agroforestal, zootecnia y agronomía del Centro Comunitario de Atención Virtual de Zipaquirá.;Para el año 2024, SAFAP se proyecta como un semillero de investigación consolidado y avalado por Minciencias, que fomente estrategias de solución a las problemáticas ambientales, forestales y agropecuarias identificadas en la Región de Sabana Centro, a través de la interacción entre la academia y la comunidad.;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Fomentar la cultura investigativa que permita expandir los entornos de aprendizaje académico a problemáticas reales en temas ambientales, forestales y/o agropecuarios, que contribuyan a la solución de problemáticas identificadas en la Región de Sabana Centro y generen bienestar en la comunidad.;JAIME ALBERTO NAVARRO LOPEZ;jaime.navarro@unad.edu.co;Grupo Interdisciplinario de Estudios Sectoriales (GIES);COL0058719;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca,  Ciencias Animales y lechería, Ciencias Naturales - Ciencias Biológicas, Ciencias de la Tierra y Medioambientales 
+16;Sostenibilidad Ambiental, Forestal y Agropecuaria;SAFAP;Generar un escenario de investigación ambiental, forestal y/o agropecuario, enfocado en la identificación de las problemáticas rurales (reales o potenciales) entorno a los sistemas agro productivos, forestales y naturales que se encuentran en la Región de Sabana Centro, evaluando sus impactos y formulando alternativas de solución que contribuyan al bienestar de la comunidad, mediante la articulación de las áreas de conocimiento de los programas de ingeniería ambiental, ingeniería agroforestal, zootecnia y agronomía del Centro Comunitario de Atención Virtual de Zipaquirá.;Para el año 2024, SAFAP se proyecta como un semillero de investigación consolidado y avalado por Minciencias, que fomente estrategias de solución a las problemáticas ambientales, forestales y agropecuarias identificadas en la Región de Sabana Centro, a través de la interacción entre la academia y la comunidad.;Semillero de profundización;Zona Centro Bogota Cundinamarca (Zcbog);Ingenieria Agroforestal;Agropecuario, Selvicultura, Pesca y Veterinaria;Fomentar la cultura investigativa que permita expandir los entornos de aprendizaje académico a problemáticas reales en temas ambientales, forestales y/o agropecuarios, que contribuyan a la solución de problemáticas identificadas en la Región de Sabana Centro y generen bienestar en la comunidad.;JAIME ALBERTO NAVARRO LOPEZ;jaime.navarro@unad.edu.co;Grupo Interdisciplinario de Estudios Sectoriales (GIES);COL0058719;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca,  Ciencias Animales y lechería, Ciencias Naturales - Ciencias Biológicas, Ciencias de la Tierra y Medioambientales 
 Ingeniería y Tecnología - Ingeniería Ambiental";" Objetivo 2: Hambre cero; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Bogota Cundinamarca (Zcbog)`;
 
-        // CADENA AGRÍCOLA
         const csvAgricola = `Número;Nombre Semillero;Acrónimo;Misión;Visión;Tipo de semillero;Sede del semillero;Programa académico;Clasificación Internacional Normalizada de la Educación(CINE);Objetivo general;Propietario del semillero;Correo propietario;Nombre Grupo;Codigo GrupoLac;Áreas de conocimiento;Objetivos de desarrollo sostenible;Sede del grupo
 1;Agroandes;AGROANDES; Ser un grupo un estudiantes, docentes, egresados de la Universidad Nacional Abierta y a Distancia - UNAD y miembros de redes de conocimiento, que buscan generar un espacio multidisciplinario donde los integrantes adquieran competencias investigativas y transversales al desarrollo humano, que contribuyan a su formación integral mediante la formulación y desarrollo de proyectos, divulgación académica y consolidación de redes de conocimiento en el estudio de temas particulares, junto al intercambio de experiencias académicas entre estudiantes, egresados, docentes, investigadores y el entorno;"En el 2030 ser un semillero líder en investigación formativa y aplicada de la Escuela de Ciencias agrícolas, pecuarias y del medio ambiente - ECAPMA en la sede del Departamento del Huila y de la Universidad Nacional Abierta y a Distancia – UNAD; donde sus miembros generen productos y servicios académicos de calidad, con un impacto regional, nacional e internacional en las áreas de medio ambiente y afines, que permitan estimular la generación de productos de nuevo conocimiento";Semillero de profundización;Zona Sur (Zsur);Agronomia;Producción agrícola y ganadera;Promover el desarrollo de procesos investigativos relacionados con las temáticas de agricultura biológica, agroecosistemas, biodiversidad, recursos naturales y genéticos;GUILLERMO EDMUNDO CAICEDO DIAZ ;diguillerm@unadvirtual.edu.co;Inyumacizo;COL0043529;Ciencias Agrícolas - Agricultura, Silvicultura y Pesca ;;Zona Sur (Zsur)
 2;Agronomos Productores Unad;APUNAD; El semillero Agrónomos productores UNAD se crea para desarrollar proyectos de producción y comercialización de productos de agricultura con BPA orientados a las necesidades de los clientes ó demandantes de los bienes cosechados.;"Visión El semillero Agrónomos productores UNAD pretende ser  un modelo que impulse a los estudiantes a la producción de cultivos trazando el futuro del profesional enmarcado en la creación de empresa y la orientación hacia los requerimientos del mercado nacional e internacional.
@@ -389,7 +432,7 @@ Ciencias Naturales - Ciencias Biológicas
 Ingeniería y Tecnología - Biotecnología Medioambiental ";" Objetivo 4: Educación de calidad; Objetivo 12: Uso eficiente de los recursos y la energía; Objetivo 13:Cambio climático; Objetivo 15: Vida de ecosistemas terrestres";Zona Centro Sur (Zcsur)
 23;Semillero de Investigación en Agricultura Sustentable - Sias;SIAS;"El semillero de investigación busca generar espacios para la formación investigativa y la generación de propuesta de investigación formativa que ofrezca soluciones sostenibles a los problemas ecológicos y agroambientales del campo colombiano en general y de su área de influencia en particular, a través de generar valor mediante el desarrollo de competencias investigativas en docentes y estudiantes. Desarrollar las capacidades investigativas de estudiantes y docentes a partir del estudio de problemáticas actuales y locales alrededor del campo y de los sistemas de producción; generando nuevo conocimiento y soluciones sostenibles.";El semillero de investigación SIAS será en el año 2030 un referente investigativo y académico que desde la UNAD ha propiciado generación de competencias investigativas en sus integrantes mediante la ejecución de propuestas investigativas que han desarrollado productos tanto para el sector agropecuario como para la comunidad académica, además lidera y propone soluciones sostenibles para el desarrollo productivo y el medio ambiente.;Semillero de profundización;Zona Centro Boyaca (Zcboy);Agronomia;Agropecuario, Selvicultura, Pesca y Veterinaria;"Desarrollar y potenciar competencias investigativas en sus integrantes mediante la interacción constante con investigadores y productores rurales en busca de soluciones a la problemática productiva y ambienta.
 
-OBJETIVOS ESPECIFICOS. 1. Desarrollar competencias investigativas en los miembros del grupo. 2. Identificar en la problemática ambiental proyectos de investigación y propender por su solución. 3. Fortalecer la generation de conocimiento en sistemas de producción sostenible a través de interlocución con comunidades rurales. 4. Desarrollar procesos de investigación e innovación tecnológica en el sector agropecuario y ambiental. 5. Divulgar el conocimiento generado a través de publicaciones";JORGE ARMANDO FONSECA ;jafonsecac@unadvirtual.edu.co;Gigass;COL0027689;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca , 
+OBJETIVOS ESPECIFICOS. 1. Desarrollar competencias investigativas en los miembros del grupo. 2. Identificar en la problemática ambiental proyectos de investigación y propender por su solución. 3. Fortalecer la generación de conocimiento en sistemas de producción sostenible a través de interlocución con comunidades rurales. 4. Desarrollar procesos de investigación e innovación tecnológica en el sector agropecuario y ambiental. 5. Divulgar el conocimiento generado a través de publicaciones";JORGE ARMANDO FONSECA ;jafonsecac@unadvirtual.edu.co;Gigass;COL0027689;"Ciencias Agrícolas - Agricultura, Silvicultura y Pesca , 
 Ciencias Agrícolas - Biotecnología Agrícola ";" Objetivo 2: Hambre cero
 ; Objetivo 13:Cambio climático";Zona Centro Boyaca (Zcboy)
 24;Semillero de Investigación en Biotecnología, Ecología Industrial y Saneamiento;SIBEIS;El semillero de investigación en Biotecnología agroambiental, Ecología Industrial, y Saneamiento - SIBEIS promoverá espacios para la generación de proyectos y productos formativos y científicos con redes nacionales e internacionales para el desarrollo de soluciones a problemas socioambientales por medio del estudio y la aplicación de la biotecnología, ecología industrial y el saneamiento ambiental como estrategia para la promoción del desarrollo sostenible en los territorios.;SIBEIS tiene como visión consolidarse como un semillero de investigación de la Universidad Nacional Abierta y a Distancia UNAD destacado por ser un espacio de crecimiento personal, académico y científico de sus miembros docentes y de estudiantes de pregrado y posgrado enfocado a la generación de soluciones ambientales prácticas y productos científicos de índole nacional e internacional.;Semillero de profundización;Zona Centro Oriente (Zcori);Especialización en Biotecnología Agroambiental;Tecnología de protección del medio ambiente;Generar una plataforma activa para el desarrollo de investigación formativa, divulgación científica y generación de nuevo conocimiento en el área de la biotecnología agroambiental, ecología industrial y el saneamiento ambiental para el aporte de soluciones sostenibles en las regiones;JORGE ANDRES DUARTE DUARTE;jorge.duarte@unad.edu.co;Ciab;COL0121879;Ingeniería y Tecnología - Biotecnología Medioambiental (Semillero de Investigación en Biotecnología, Ecología Industrial y Saneamiento), ;" Objetivo 6: Agua limpia y saneamiento
@@ -489,13 +532,13 @@ Ciencias Agrícolas - Ciencias Veterinarias ,  Otras Ciencias Agrícolas";" Obje
         };
 
         const Icons = {
-            Search: () => <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>,
-            MapPin: () => <svg className="h-4 w-4 inline mr-1 text-paleta-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
-            Book: () => <svg className="h-4 w-4 inline mr-1 text-paleta-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0-3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
-            User: () => <svg className="h-4 w-4 inline mr-1 text-paleta-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>,
-            Link: () => <svg className="h-4 w-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>,
+            Search: () => <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>,
+            MapPin: () => <svg className="h-4 w-4 inline mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>,
+            Book: () => <svg className="h-4 w-4 inline mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0-3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>,
+            User: () => <svg className="h-5 w-5 inline mr-2 text-adobe-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>,
+            Link: () => <svg className="h-5 w-5 inline mr-2 text-adobe-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>,
             Close: () => <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>,
-            Leaf: () => <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>
+            ChevronRight: () => <svg className="h-4 w-4 inline ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
         };
 
         const App = () => {
@@ -504,7 +547,6 @@ Ciencias Agrícolas - Ciencias Veterinarias ,  Otras Ciencias Agrícolas";" Obje
             const [filtroSede, setFiltroSede] = useState('Todas');
             const [filtroPrograma, setFiltroPrograma] = useState('Todos');
             
-            // Estado para las 4 pestañas. Se inicia en Pecuaria porque es la que tenemos cargada ahora
             const cadenasDisponibles = ['Pecuaria', 'Agrícola', 'Agroforestal', 'Ambiental'];
             const [activeTab, setActiveTab] = useState('Pecuaria');
 
@@ -519,16 +561,13 @@ Ciencias Agrícolas - Ciencias Veterinarias ,  Otras Ciencias Agrícolas";" Obje
                 setSemilleros([...dataPecuario, ...dataAmbiental, ...dataAgroforestal, ...dataAgricola]);
             }, []);
 
-            // Filtramos la data por la pestaña (Cadena) activa primero
             const semillerosPorCadena = useMemo(() => {
                 return semilleros.filter(s => s.Cadena === activeTab);
             }, [semilleros, activeTab]);
 
-            // Las listas de filtros se adaptan SÓLO a lo que existe en la cadena actual
             const sedes = useMemo(() => ['Todas', ...new Set(semillerosPorCadena.map(s => s['Sede del semillero']).filter(Boolean))].sort(), [semillerosPorCadena]);
             const programas = useMemo(() => ['Todos', ...new Set(semillerosPorCadena.map(s => s['Programa académico']).filter(Boolean))].sort(), [semillerosPorCadena]);
 
-            // Filtrado final con búsqueda y dropdowns
             const semillerosFiltrados = useMemo(() => {
                 return semillerosPorCadena.filter(s => {
                     const nombreSemillero = s['Nombre Semillero'] || '';
@@ -544,7 +583,6 @@ Ciencias Agrícolas - Ciencias Veterinarias ,  Otras Ciencias Agrícolas";" Obje
                 });
             }, [semillerosPorCadena, searchTerm, filtroSede, filtroPrograma]);
 
-            // Resetear filtros secundarios al cambiar de pestaña
             const handleTabChange = (cadena) => {
                 setActiveTab(cadena);
                 setSearchTerm('');
@@ -552,260 +590,273 @@ Ciencias Agrícolas - Ciencias Veterinarias ,  Otras Ciencias Agrícolas";" Obje
                 setFiltroPrograma('Todos');
             };
 
-            const getTabStyle = (cadena, isActive) => {
-                if (!isActive) return "border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100";
+            const getCadenaColors = (cadena) => {
                 switch(cadena) {
-                    case 'Pecuaria': return "border-paleta-2 text-paleta-2 bg-yellow-50";
-                    case 'Ambiental': return "border-paleta-1 text-paleta-1 bg-green-50";
-                    case 'Agroforestal': return "border-paleta-3 text-paleta-3 bg-orange-50";
-                    case 'Agrícola': return "border-paleta-4 text-paleta-4 bg-red-50";
-                    default: return "border-gray-800 text-gray-800 bg-gray-50";
-                }
-            };
-
-            const getCadenaColor = (cadena) => {
-                switch(cadena) {
-                    case 'Pecuaria': return 'bg-paleta-2 text-white';
-                    case 'Ambiental': return 'bg-paleta-1 text-white';
-                    case 'Agroforestal': return 'bg-paleta-3 text-white';
-                    case 'Agrícola': return 'bg-paleta-4 text-white';
-                    default: return 'bg-gray-500 text-white';
+                    case 'Pecuaria': return { text: 'text-cad-pec', bg: 'bg-cad-pec' };
+                    case 'Ambiental': return { text: 'text-cad-amb', bg: 'bg-cad-amb' };
+                    case 'Agroforestal': return { text: 'text-cad-for', bg: 'bg-cad-for' };
+                    case 'Agrícola': return { text: 'text-cad-agr', bg: 'bg-cad-agr' };
+                    default: return { text: 'text-adobe-3', bg: 'bg-adobe-3' };
                 }
             };
 
             return (
-                <div className="min-h-screen bg-gray-50 pb-12 relative">
-                    {/* ENCABEZADO */}
-                    <div className="bg-gradient-to-r from-paleta-1 via-paleta-2 to-paleta-4 text-white p-8 shadow-md rounded-b-xl mb-6 mx-4 mt-4 relative overflow-hidden">
-                        <div className="relative z-10">
-                            <h1 className="text-3xl font-bold mb-2 drop-shadow-md">Directorio de Semilleros de Investigación 2026</h1>
-                            <p className="text-lg opacity-90">Explora la información clasificada por Cadenas de Formación.</p>
-                        </div>
-                        <div className="absolute top-0 right-0 opacity-10 transform translate-x-4 -translate-y-10 scale-150">
-                            <Icons.Leaf />
-                        </div>
+                <div className="min-h-screen bg-adobe-2 font-sans pb-24">
+                    
+                    {/* ENCABEZADO APPLE STYLE (Hero Section) */}
+                    <div className="pt-24 pb-12 px-6 text-center max-w-4xl mx-auto">
+                        <h1 className="text-5xl md:text-6xl font-bold text-adobe-3 tracking-tight mb-4">
+                            Directorio de Semilleros.
+                        </h1>
+                        <p className="text-xl md:text-2xl text-adobe-4 font-medium tracking-tight">
+                            Investigación Formativa 2026.
+                        </p>
                     </div>
 
-                    <div className="max-w-7xl mx-auto px-4">
-                        
-                        {/* 4 PESTAÑAS (TABS) */}
-                        <div className="flex flex-wrap border-b border-gray-300 mb-6 bg-white rounded-t-xl shadow-sm overflow-hidden">
-                            {cadenasDisponibles.map(cad => (
-                                <button
-                                    key={cad}
-                                    onClick={() => handleTabChange(cad)}
-                                    className={`flex-1 py-4 px-4 text-center font-bold text-sm transition-all duration-300 border-b-4 ${getTabStyle(cad, activeTab === cad)}`}
-                                >
-                                    Cadena {cad}
-                                </button>
-                            ))}
-                        </div>
+                    {/* NAVEGACIÓN TIPO iOS (Segmented Control) */}
+                    <div className="sticky top-0 z-30 glass-nav py-4 px-6 mb-12">
+                        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                            
+                            {/* Pestañas (Segmented Control) */}
+                            <div className="flex bg-adobe-5 p-1 rounded-full w-full md:w-auto overflow-x-auto">
+                                {cadenasDisponibles.map(cad => (
+                                    <button
+                                        key={cad}
+                                        onClick={() => handleTabChange(cad)}
+                                        className={`flex-1 md:flex-none px-6 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
+                                            activeTab === cad 
+                                            ? 'bg-white shadow-sm text-adobe-3' 
+                                            : 'text-adobe-4 hover:text-adobe-3'
+                                        }`}
+                                    >
+                                        {cad}
+                                    </button>
+                                ))}
+                            </div>
 
-                        {/* BARRA DE FILTROS SECUNDARIOS */}
-                        <div className="bg-white p-5 rounded-b-xl shadow-sm border border-gray-100 mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div className="relative w-full">
-                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            {/* Buscador Estilo Apple */}
+                            <div className="relative w-full md:w-80">
+                                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-adobe-4">
                                     <Icons.Search />
                                 </div>
                                 <input
                                     type="text"
-                                    placeholder="Buscar en esta cadena..."
-                                    className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-paleta-1 focus:border-paleta-1 text-sm"
+                                    placeholder="Buscar semillero..."
+                                    className="block w-full pl-11 pr-4 py-2.5 bg-adobe-5 border border-transparent rounded-full font-medium text-sm text-adobe-3 placeholder-adobe-4 focus:outline-none focus:bg-white focus:border-gray-300 focus:ring-4 focus:ring-adobe-1/10 transition-all"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                 />
                             </div>
+                        </div>
+                    </div>
 
-                            <select 
-                                className="block w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-paleta-3 focus:border-paleta-3 text-sm bg-white"
-                                value={filtroPrograma}
-                                onChange={(e) => setFiltroPrograma(e.target.value)}
-                            >
-                                {programas.map(prog => <option key={prog} value={prog}>{prog === 'Todos' ? 'Todos los Programas' : prog}</option>)}
-                            </select>
+                    <div className="max-w-7xl mx-auto px-6">
+                        
+                        {/* FILTROS SECUNDARIOS */}
+                        <div className="flex flex-col sm:flex-row gap-4 mb-10 items-center justify-between">
+                            <div className="flex gap-4 w-full sm:w-auto">
+                                <select 
+                                    className="appearance-none bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-adobe-3 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-adobe-1/20 transition-all cursor-pointer shadow-sm"
+                                    value={filtroPrograma}
+                                    onChange={(e) => setFiltroPrograma(e.target.value)}
+                                >
+                                    {programas.map(prog => <option key={prog} value={prog}>{prog === 'Todos' ? 'Programas (Todos)' : prog}</option>)}
+                                </select>
 
-                            <select 
-                                className="block w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-paleta-4 focus:border-paleta-4 text-sm bg-white"
-                                value={filtroSede}
-                                onChange={(e) => setFiltroSede(e.target.value)}
-                            >
-                                {sedes.map(sede => <option key={sede} value={sede}>{sede === 'Todas' ? 'Todas las Sedes' : sede}</option>)}
-                            </select>
+                                <select 
+                                    className="appearance-none bg-white border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-medium text-adobe-3 hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-adobe-1/20 transition-all cursor-pointer shadow-sm"
+                                    value={filtroSede}
+                                    onChange={(e) => setFiltroSede(e.target.value)}
+                                >
+                                    {sedes.map(sede => <option key={sede} value={sede}>{sede === 'Todas' ? 'Sedes (Todas)' : sede}</option>)}
+                                </select>
+                            </div>
+                            
+                            <div className="text-sm font-medium text-adobe-4">
+                                Mostrando <span className="text-adobe-3 font-semibold">{semillerosFiltrados.length}</span> resultados
+                            </div>
                         </div>
 
-                        {/* RESULTADOS */}
-                        <div className="mb-6 flex justify-between items-center border-b border-gray-200 pb-2">
-                            <h2 className="text-xl font-bold text-gray-700">Resultados en Cadena {activeTab}</h2>
-                            <span className="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm font-semibold">
-                                {semillerosFiltrados.length} semilleros
-                            </span>
-                        </div>
-
-                        {/* GRID DE TARJETAS */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                            {semillerosFiltrados.map((semillero, index) => (
-                                <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full group">
-                                    
-                                    <div className={`px-4 py-1.5 text-xs font-bold uppercase tracking-wide ${getCadenaColor(semillero.Cadena)}`}>
-                                        Cadena: {semillero.Cadena}
+                        {/* GRID DE TARJETAS (Apple Card Style) */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {semillerosFiltrados.map((semillero, index) => {
+                                const colors = getCadenaColors(semillero.Cadena);
+                                
+                                return (
+                                <div 
+                                    key={index} 
+                                    onClick={() => setSelectedSemillero(semillero)}
+                                    className="bg-white rounded-[24px] p-8 shadow-apple-card hover:shadow-apple-card-hover transition-all duration-300 flex flex-col h-full cursor-pointer transform hover:-translate-y-1"
+                                >
+                                    <div className={`text-xs font-semibold px-3 py-1 rounded-full w-fit mb-5 ${colors.text} ${colors.bg} bg-opacity-10`}>
+                                        {semillero['Acrónimo'] || 'Semillero'}
                                     </div>
+                                    
+                                    <h3 className="text-2xl font-semibold text-adobe-3 tracking-tight mb-3 leading-tight">
+                                        {semillero['Nombre Semillero']}
+                                    </h3>
+                                    
+                                    <p className="text-adobe-4 text-sm leading-relaxed mb-8 line-clamp-3 font-medium">
+                                        {semillero['Misión']}
+                                    </p>
 
-                                    <div className="p-5 flex-grow flex flex-col">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded-md border border-gray-200">
-                                                {semillero['Acrónimo'] || 'N/A'}
-                                            </span>
-                                            <span className="text-xs text-gray-400 font-medium">
-                                                ID: {semillero['Numero'] || index + 1}
-                                            </span>
+                                    <div className="space-y-2 mt-auto mb-6">
+                                        <div className="flex items-center text-xs font-medium text-adobe-4">
+                                            <Icons.Book />
+                                            <span className="truncate">{semillero['Programa académico'] || 'Programa no especificado'}</span>
                                         </div>
-                                        
-                                        <h3 className="text-xl font-bold text-gray-800 mb-3 leading-tight group-hover:text-paleta-1 transition-colors">
-                                            {semillero['Nombre Semillero']}
-                                        </h3>
-                                        
-                                        <p className="text-gray-600 text-sm mb-5 line-clamp-2 italic">
-                                            "{semillero['Misión']}"
-                                        </p>
-
-                                        <div className="space-y-2 mt-auto bg-gray-50 p-3 rounded-lg border border-gray-100">
-                                            <div className="flex items-center text-sm text-gray-700">
-                                                <Icons.Book />
-                                                <span className="truncate">{semillero['Programa académico'] || 'No especificado'}</span>
-                                            </div>
-                                            <div className="flex items-center text-sm text-gray-700">
-                                                <Icons.MapPin />
-                                                <span className="truncate">{semillero['Sede del semillero'] || 'No especificada'}</span>
-                                            </div>
+                                        <div className="flex items-center text-xs font-medium text-adobe-4">
+                                            <Icons.MapPin />
+                                            <span className="truncate">{semillero['Sede del semillero'] || 'Sede no especificada'}</span>
                                         </div>
                                     </div>
                                     
-                                    <div className="p-4 border-t border-gray-100">
-                                        <button 
-                                            onClick={() => setSelectedSemillero(semillero)}
-                                            className="w-full py-2.5 bg-white border-2 border-paleta-1 text-paleta-1 rounded-lg font-bold hover:bg-paleta-1 hover:text-white transition-colors flex justify-center items-center gap-2"
-                                        >
-                                            <Icons.Search /> Ver detalles completos
-                                        </button>
+                                    <div className="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                                        <span className="text-adobe-1 text-sm font-medium hover:underline flex items-center">
+                                            Conocer más <Icons.ChevronRight />
+                                        </span>
                                     </div>
                                 </div>
-                            ))}
+                            )})}
                         </div>
                         
+                        {/* ESTADO VACÍO */}
                         {semillerosFiltrados.length === 0 && (
-                            <div className="text-center py-16 bg-white rounded-xl shadow-sm border border-gray-100">
-                                <div className="text-gray-300 flex justify-center mb-4"><Icons.Leaf /></div>
-                                <p className="text-gray-500 text-lg font-medium">Aún no se han cargado datos para esta cadena, o no hay resultados para tu búsqueda.</p>
+                            <div className="text-center py-32">
+                                <h3 className="text-2xl font-semibold text-adobe-3 tracking-tight mb-2">Sin resultados</h3>
+                                <p className="text-adobe-4 mb-6 font-medium">No encontramos semilleros que coincidan con tu búsqueda.</p>
                                 <button 
                                     onClick={() => handleTabChange(activeTab)}
-                                    className="mt-4 px-6 py-2 bg-paleta-2 text-white rounded-lg font-bold shadow hover:bg-yellow-500 transition"
+                                    className="px-6 py-2 bg-adobe-5 text-adobe-3 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors"
                                 >
-                                    Limpiar búsqueda
+                                    Limpiar filtros
                                 </button>
                             </div>
                         )}
                     </div>
 
-                    {/* MODAL DE DETALLES COMPLETOS */}
+                    {/* MODAL DE DETALLES COMPLETOS (Apple Overlay Style) */}
                     {selectedSemillero && (
-                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-12">
                             <div 
-                                className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm modal-overlay"
+                                className="absolute inset-0 bg-adobe-3/40 backdrop-blur-md modal-overlay"
                                 onClick={() => setSelectedSemillero(null)}
                             ></div>
                             
-                            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative z-10 modal-content flex flex-col">
+                            <div className="bg-white rounded-[32px] shadow-apple-modal w-full max-w-4xl max-h-[90vh] overflow-hidden relative z-10 modal-content flex flex-col">
                                 
-                                <div className={`sticky top-0 px-6 py-4 flex justify-between items-center z-20 shadow-sm ${getCadenaColor(selectedSemillero.Cadena)}`}>
-                                    <div>
-                                        <div className="text-xs font-bold uppercase tracking-wider opacity-90 mb-1">
-                                            Cadena {selectedSemillero.Cadena} | {selectedSemillero['Tipo de semillero']}
-                                        </div>
-                                        <h2 className="text-2xl font-bold leading-tight">
-                                            {selectedSemillero['Nombre Semillero']} ({selectedSemillero['Acrónimo']})
-                                        </h2>
+                                {/* Header Modal */}
+                                <div className="px-8 py-6 flex justify-between items-center border-b border-gray-100">
+                                    <div className={`text-xs font-semibold px-3 py-1 rounded-full ${getCadenaColors(selectedSemillero.Cadena).text} ${getCadenaColors(selectedSemillero.Cadena).bg} bg-opacity-10`}>
+                                        {selectedSemillero['Tipo de semillero'] || 'Semillero'}
                                     </div>
                                     <button 
                                         onClick={() => setSelectedSemillero(null)}
-                                        className="p-2 rounded-full hover:bg-white hover:bg-opacity-20 transition-colors"
+                                        className="p-2 bg-adobe-5 text-adobe-4 hover:text-adobe-3 hover:bg-gray-200 rounded-full transition-colors"
                                     >
                                         <Icons.Close />
                                     </button>
                                 </div>
 
-                                <div className="p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                                <div className="p-8 md:p-12 overflow-y-auto">
                                     
-                                    {/* Textos largos */}
-                                    <div className="md:col-span-2 space-y-6">
-                                        <section>
-                                            <h3 className="text-lg font-bold text-paleta-1 mb-2 border-b-2 border-paleta-1 pb-1 inline-block">Misión</h3>
-                                            <p className="text-gray-700 leading-relaxed text-justify">{selectedSemillero['Misión']}</p>
-                                        </section>
+                                    <h2 className="text-4xl md:text-5xl font-bold text-adobe-3 tracking-tight mb-12 leading-tight">
+                                        {selectedSemillero['Nombre Semillero']}
+                                    </h2>
+
+                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                                         
-                                        <section>
-                                            <h3 className="text-lg font-bold text-paleta-2 mb-2 border-b-2 border-paleta-2 pb-1 inline-block">Visión</h3>
-                                            <p className="text-gray-700 leading-relaxed text-justify">{selectedSemillero['Visión']}</p>
-                                        </section>
+                                        {/* Columna Principal */}
+                                        <div className="lg:col-span-2 space-y-10">
+                                            <section>
+                                                <h3 className="text-lg font-semibold text-adobe-3 mb-3 tracking-tight">Misión</h3>
+                                                <p className="text-adobe-4 font-medium leading-relaxed">{selectedSemillero['Misión']}</p>
+                                            </section>
+                                            
+                                            <section>
+                                                <h3 className="text-lg font-semibold text-adobe-3 mb-3 tracking-tight">Visión</h3>
+                                                <p className="text-adobe-4 font-medium leading-relaxed">{selectedSemillero['Visión']}</p>
+                                            </section>
 
-                                        <section>
-                                            <h3 className="text-lg font-bold text-paleta-3 mb-2 border-b-2 border-paleta-3 pb-1 inline-block">Objetivo General</h3>
-                                            <p className="text-gray-700 leading-relaxed text-justify">{selectedSemillero['Objetivo general']}</p>
-                                        </section>
+                                            <section>
+                                                <h3 className="text-lg font-semibold text-adobe-3 mb-3 tracking-tight">Objetivo General</h3>
+                                                <p className="text-adobe-4 font-medium leading-relaxed">{selectedSemillero['Objetivo general']}</p>
+                                            </section>
 
-                                        <section className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                            <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-3">Objetivos de Desarrollo Sostenible (ODS)</h3>
-                                            <ul className="list-disc list-inside text-gray-700 space-y-1 text-sm">
-                                                {selectedSemillero['Objetivos de desarrollo sostenible'] ? 
-                                                    selectedSemillero['Objetivos de desarrollo sostenible'].split(';').map((ods, i) => (
-                                                        <li key={i}>{ods.trim()}</li>
-                                                    )) : <li>No especificado</li>
-                                                }
-                                            </ul>
-                                        </section>
-                                    </div>
+                                            <section className="bg-adobe-2 rounded-[24px] p-8">
+                                                <h3 className="text-sm font-semibold text-adobe-3 uppercase tracking-wider mb-4">Impacto ODS</h3>
+                                                <ul className="space-y-3 font-medium text-sm text-adobe-4">
+                                                    {selectedSemillero['Objetivos de desarrollo sostenible'] ? 
+                                                        selectedSemillero['Objetivos de desarrollo sostenible'].split(';').map((ods, i) => (
+                                                            <li key={i} className="flex items-start">
+                                                                <span className="text-adobe-1 mr-2">•</span>
+                                                                {ods.trim()}
+                                                            </li>
+                                                        )) : <li>No especificado</li>
+                                                    }
+                                                </ul>
+                                            </section>
+                                        </div>
 
-                                    {/* Metadatos y Liderazgo */}
-                                    <div className="space-y-6">
-                                        <div className="bg-green-50 p-5 rounded-xl border border-green-100">
-                                            <h3 className="text-sm font-bold text-paleta-1 uppercase tracking-wider mb-4 flex items-center"><Icons.User /> Liderazgo</h3>
-                                            <div className="space-y-3">
-                                                <div>
-                                                    <div className="text-xs text-gray-500 font-semibold">Líder</div>
-                                                    <div className="font-medium text-gray-800">{selectedSemillero['Propietario del semillero']}</div>
-                                                </div>
-                                                <div>
-                                                    <div className="text-xs text-gray-500 font-semibold">Contacto</div>
-                                                    <a href={`mailto:${selectedSemillero['Correo propietario'].split(';')[0]}`} className="text-paleta-4 hover:underline break-all text-sm font-medium">
+                                        {/* Columna Lateral */}
+                                        <div className="space-y-8">
+                                            <div>
+                                                <h3 className="text-sm font-semibold text-adobe-3 uppercase tracking-wider mb-4 flex items-center">
+                                                    <Icons.User /> Liderazgo
+                                                </h3>
+                                                <div className="space-y-1">
+                                                    <div className="text-base font-semibold text-adobe-3">{selectedSemillero['Propietario del semillero']}</div>
+                                                    <div className="text-sm text-adobe-4">Investigador Principal</div>
+                                                    <a href={`mailto:${selectedSemillero['Correo propietario'].split(';')[0]}`} className="inline-block mt-2 text-adobe-1 text-sm font-medium hover:underline break-all">
                                                         {selectedSemillero['Correo propietario']}
                                                     </a>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div className="bg-orange-50 p-5 rounded-xl border border-orange-100">
-                                            <h3 className="text-sm font-bold text-paleta-3 uppercase tracking-wider mb-4 flex items-center"><Icons.Link /> Vinculación</h3>
-                                            <div className="space-y-3">
+                                            <hr className="border-gray-100" />
+
+                                            <div>
+                                                <h3 className="text-sm font-semibold text-adobe-3 uppercase tracking-wider mb-4 flex items-center">
+                                                    <Icons.Link /> Vinculación
+                                                </h3>
+                                                <div className="space-y-4">
+                                                    <div>
+                                                        <div className="text-xs text-adobe-4 font-medium mb-1">Grupo de Investigación</div>
+                                                        <div className="text-sm font-semibold text-adobe-3 leading-tight">{selectedSemillero['Nombre Grupo']}</div>
+                                                    </div>
+                                                    <div>
+                                                        <div className="text-xs text-adobe-4 font-medium mb-1">Código GrupLAC</div>
+                                                        <div className="text-sm font-mono bg-adobe-5 text-adobe-3 px-2 py-1 rounded inline-block">
+                                                            {selectedSemillero['Codigo GrupoLac'] || 'N/A'}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr className="border-gray-100" />
+
+                                            <div className="space-y-4">
                                                 <div>
-                                                    <div className="text-xs text-gray-500 font-semibold">Grupo de Investigación</div>
-                                                    <div className="font-medium text-gray-800 leading-tight">{selectedSemillero['Nombre Grupo']}</div>
+                                                    <h3 className="text-xs font-semibold text-adobe-4 uppercase tracking-wider mb-1">Clasificación CINE</h3>
+                                                    <p className="text-sm font-medium text-adobe-3">{selectedSemillero['Clasificación Internacional Normalizada de la Educación(CINE)'] || 'N/A'}</p>
                                                 </div>
                                                 <div>
-                                                    <div className="text-xs text-gray-500 font-semibold">Código GrupLAC</div>
-                                                    <div className="font-mono text-sm bg-white px-2 py-1 inline-block rounded border border-gray-200 mt-1">{selectedSemillero['Codigo GrupoLac'] || 'N/A'}</div>
+                                                    <h3 className="text-xs font-semibold text-adobe-4 uppercase tracking-wider mb-1">Áreas de Conocimiento</h3>
+                                                    <p className="text-sm font-medium text-adobe-3">{selectedSemillero['Áreas de conocimiento'] || 'N/A'}</p>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div>
-                                            <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Clasificación CINE</h3>
-                                            <p className="text-sm text-gray-700 bg-gray-100 p-2 rounded">{selectedSemillero['Clasificación Internacional Normalizada de la Educación(CINE)'] || 'N/A'}</p>
-                                        </div>
-
-                                        <div>
-                                            <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">Áreas de Conocimiento</h3>
-                                            <p className="text-sm text-gray-700">{selectedSemillero['Áreas de conocimiento'] || 'N/A'}</p>
-                                        </div>
                                     </div>
+                                </div>
+                                
+                                {/* Footer Modal */}
+                                <div className="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-end">
+                                    <button 
+                                        onClick={() => setSelectedSemillero(null)}
+                                        className="px-6 py-2 bg-adobe-1 text-white rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+                                    >
+                                        Cerrar ficha
+                                    </button>
                                 </div>
                             </div>
                         </div>
